@@ -4,19 +4,9 @@ import 'package:my_cat/screens/adopte_listView.dart';
 
 // ignore: must_be_immutable
 class Adopte extends StatelessWidget {
-  Adopte({Key? key, this.catExist, this.catList}) : super(key: key);
-  bool? catExist;
-  bool? catExist2;
-  var catList;
+  Adopte({Key? key, required this.catList}) : super(key: key);
 
-  setState() {
-    if (catExist == true) {
-      catExist2 = true;
-    } else {
-      catExist2 = false;
-    }
-    return catExist2;
-  }
+  var catList;
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +25,13 @@ class Adopte extends StatelessWidget {
               ),
               leading: BackButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyApp()));
+                  Navigator.pop(context);
                 },
               ),
               actions: [
                 IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyApp()));
+                    Navigator.pop(context);
                   },
                   icon: Icon(Icons.home),
                   color: Colors.white,
@@ -67,12 +55,7 @@ class Adopte extends StatelessWidget {
                       child: Column(
                         children: [
                           TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Adopte()));
-                            },
+                            onPressed: () {},
                             child: Text(
                               'Dogs',
                               style:
@@ -96,15 +79,10 @@ class Adopte extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              print(' Add screen cat exist: $catExist');
-                              print(' Adopte screen cat exist: $catExist2');
-                              print(catList);
-
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => CatsListView(
-                                            catExist: setState(),
                                             catList: catList,
                                           )));
                             },

@@ -24,15 +24,13 @@ class Add extends StatelessWidget {
               ),
               leading: BackButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyApp()));
+                  Navigator.pop(context);
                 },
               ),
               actions: [
                 IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyApp()));
+                    Navigator.pop(context);
                   },
                   icon: Icon(Icons.home),
                   color: Colors.white,

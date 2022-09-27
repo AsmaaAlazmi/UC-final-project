@@ -19,16 +19,6 @@ class Home extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyApp()));
-                },
-                icon: Icon(Icons.home),
-                color: Colors.white,
-              ),
-            ],
           ),
           backgroundColor: Colors.transparent,
           body: Container(
@@ -49,8 +39,12 @@ class Home extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Adopte()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Adopte(
+                                      catList: cat,
+                                    )));
                       },
                       child: Text(
                         'Adopte',

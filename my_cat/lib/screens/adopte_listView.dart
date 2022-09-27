@@ -10,21 +10,13 @@ import '../main.dart';
 // ignore: must_be_immutable
 class CatsListView extends StatefulWidget {
   var catList;
-  var catExist;
-  CatsListView({Key? key, this.catList, this.catExist}) : super(key: key);
+  CatsListView({Key? key, this.catList}) : super(key: key);
 
   @override
   State<CatsListView> createState() => _CatsListViewState();
 }
 
 class _CatsListViewState extends State<CatsListView> {
-  late var catList = widget.catList;
-  late var catExist = widget.catExist;
-
-  setstate() {
-    catList;
-  }
-
   double maxWidth = 384;
   var mainColor = Color.fromARGB(130, 12, 10, 27);
 
@@ -64,8 +56,7 @@ class _CatsListViewState extends State<CatsListView> {
                 leading: BackButton(
                   color: Color.fromARGB(255, 255, 255, 255),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Adopte()));
+                    Navigator.pop(context);
                   },
                 ),
                 actions: [
@@ -78,8 +69,8 @@ class _CatsListViewState extends State<CatsListView> {
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyApp()));
+                      Navigator.popUntil(
+                          context, (route) => route.settings.name == "/");
                     },
                     icon: Icon(Icons.home),
                     color: Colors.white,
@@ -93,9 +84,9 @@ class _CatsListViewState extends State<CatsListView> {
   }
 
   showList() {
-    if (catExist == true) {
+    if (widget.catList != null && widget.catList.length > 0) {
       return ListView.builder(
-        itemCount: catList.length,
+        itemCount: widget.catList.length,
         itemBuilder: (context, index) {
           return Card(
               child: InkWell(
@@ -104,7 +95,7 @@ class _CatsListViewState extends State<CatsListView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => AdopteAnimalScreen(
-                            info: catList[index],
+                            info: widget.catList[index],
                           )));
             },
             child: Row(
@@ -118,7 +109,8 @@ class _CatsListViewState extends State<CatsListView> {
                           borderRadius: BorderRadius.circular(50),
                           border: Border.all(
                               width: 1.5,
-                              color: GenderColor(catList[index].gender))),
+                              color:
+                                  GenderColor(widget.catList[index].gender))),
                       child: Stack(
                         children: [
                           Container(
@@ -132,16 +124,17 @@ class _CatsListViewState extends State<CatsListView> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 130),
                                   child: Text(
-                                      '\nGender:   ${catList[index].gender}',
+                                      '\nGender:   ${widget.catList[index].gender}',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: GenderColor(
-                                              catList[index].gender),
+                                              widget.catList[index].gender),
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 130),
-                                  child: Text('\nAge:   ${catList[index].age}',
+                                  child: Text(
+                                      '\nAge:   ${widget.catList[index].age}',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.white,
@@ -150,7 +143,7 @@ class _CatsListViewState extends State<CatsListView> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 130),
                                   child: Text(
-                                      '\nBreed:   ${catList[index].breed}',
+                                      '\nBreed:   ${widget.catList[index].breed}',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.white,
@@ -168,7 +161,7 @@ class _CatsListViewState extends State<CatsListView> {
                                   border:
                                       Border.all(width: 2.5, color: mainColor)),
                               child: Image.file(
-                                catList[index].big_imageURL,
+                                widget.catList[index].big_imageURL,
                                 fit: BoxFit.cover,
                               )),
                           Container(
@@ -191,7 +184,7 @@ class _CatsListViewState extends State<CatsListView> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(45),
                               child: Image.file(
-                                catList[index].small_imageURL,
+                                widget.catList[index].small_imageURL,
                                 fit: BoxFit.cover,
                               ),
                             ),

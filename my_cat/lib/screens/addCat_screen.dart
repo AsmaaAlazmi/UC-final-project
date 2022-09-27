@@ -395,15 +395,11 @@ class _AddCatState extends State<AddCat> {
                                 );
                                 catExist = true;
                                 Adopte(
-                                  catExist: catExist,
                                   catList: widget.cat,
                                 );
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return CatsListView(
-                                    catList: widget.cat,
-                                    catExist: catExist,
-                                  );
+                                  return CatsListView(catList: widget.cat);
                                 }));
                               }
                               ;
