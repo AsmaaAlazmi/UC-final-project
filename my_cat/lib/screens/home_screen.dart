@@ -1,56 +1,41 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:my_cat/screens/video_widget.dart';
+import 'package:my_cat/main.dart';
 
+import '../models/adopte_info.dart';
+import 'addanimal_screen.dart';
 import 'adopte_screen.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
+
+  List<Information> cat = [];
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       //VideoWidget(),
       Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyApp()));
+                },
+                icon: Icon(Icons.home),
+                color: Colors.white,
+              ),
+            ],
+          ),
           backgroundColor: Colors.transparent,
           body: Container(
             color: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 290, bottom: 20),
-                      child: IconButton(
-                        onPressed: () {
-                          print('profile');
-                        },
-                        icon: Icon(Icons.perm_identity_outlined),
-                        iconSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 290),
-                      child: IconButton(
-                        onPressed: () {
-                          print('fav');
-                        },
-                        icon: Icon(Icons.favorite_border),
-                        iconSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
                 Container(
                   color: Colors.transparent,
                   padding: EdgeInsets.only(top: 300),
@@ -69,7 +54,7 @@ class Home extends StatelessWidget {
                       },
                       child: Text(
                         'Adopte',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
@@ -88,16 +73,23 @@ class Home extends StatelessWidget {
                 ),
                 Container(
                   color: Colors.transparent,
-                  padding: EdgeInsets.only(top: 30),
+                  padding: EdgeInsets.only(top: 65),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Add(
+                                      cat: cat,
+                                    )));
+                      },
                       child: Text(
                         'Place For Adoption',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(

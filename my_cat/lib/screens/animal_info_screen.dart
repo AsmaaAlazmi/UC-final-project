@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:my_cat/models/adopte_info.dart';
-import 'package:my_cat/screens/adopte_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../main.dart';
 import 'adopte_listView.dart';
 
 // ignore: must_be_immutable
 class AdopteAnimalScreen extends StatelessWidget {
   AdopteAnimalScreen({super.key, required this.info});
+  var catList;
 
   double maxWidth = 384;
 
@@ -52,23 +53,16 @@ class AdopteAnimalScreen extends StatelessWidget {
               leading: BackButton(
                 color: Color.fromARGB(255, 255, 255, 255),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CatsListView()));
+                  Navigator.pop(context);
                 },
               ),
               actions: [
                 IconButton(
                   onPressed: () {
-                    print('favorite');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyApp()));
                   },
-                  icon: Icon(Icons.favorite_border),
-                  color: Colors.white,
-                ),
-                IconButton(
-                  onPressed: () {
-                    print('profile');
-                  },
-                  icon: Icon(Icons.perm_identity_outlined),
+                  icon: Icon(Icons.home),
                   color: Colors.white,
                 ),
               ],
@@ -133,7 +127,7 @@ class AdopteAnimalScreen extends StatelessWidget {
           Container(
             width: 150,
             height: 50,
-            margin: EdgeInsets.only(top: 700, left: 200),
+            margin: EdgeInsets.only(top: 700, left: 120),
             decoration: BoxDecoration(
                 color: Colors.black,
                 //color: Color.fromARGB(255, 100, 71, 71),
@@ -148,13 +142,13 @@ class AdopteAnimalScreen extends StatelessWidget {
                   fontSize: 13,
                   fontWeight: FontWeight.bold),
             )),
-          )
+          ),
         ]),
       ),
     );
   }
 
-  Widget buildImage(String urImage, int index) => Container(
+  Widget buildImage(File urImage, int index) => Container(
         margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: Container(
           decoration: BoxDecoration(
@@ -163,7 +157,7 @@ class AdopteAnimalScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
           child: ClipRRect(
             child: Container(
-              child: Image.asset(
+              child: Image.file(
                 urImage,
                 fit: BoxFit.cover,
               ),

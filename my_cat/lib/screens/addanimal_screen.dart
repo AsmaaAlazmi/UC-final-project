@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_cat/main.dart';
-import 'package:my_cat/screens/adopte_listView.dart';
+import 'package:my_cat/screens/addCat_screen.dart';
 
-// ignore: must_be_immutable
-class Adopte extends StatelessWidget {
-  Adopte({Key? key, this.catExist, this.catList}) : super(key: key);
-  bool? catExist;
-  bool? catExist2;
-  var catList;
+class Add extends StatelessWidget {
+  Add({super.key, required this.cat});
 
-  setState() {
-    if (catExist == true) {
-      catExist2 = true;
-    } else {
-      catExist2 = false;
-    }
-    return catExist2;
-  }
+  var cat;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +19,7 @@ class Adopte extends StatelessWidget {
               elevation: 0,
               //centerTitle: true,
               title: Text(
-                'Adopte',
+                'Place for adoption',
                 style: TextStyle(color: Colors.white),
               ),
               leading: BackButton(
@@ -67,12 +56,7 @@ class Adopte extends StatelessWidget {
                       child: Column(
                         children: [
                           TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Adopte()));
-                            },
+                            onPressed: () {},
                             child: Text(
                               'Dogs',
                               style:
@@ -96,16 +80,11 @@ class Adopte extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              print(' Add screen cat exist: $catExist');
-                              print(' Adopte screen cat exist: $catExist2');
-                              print(catList);
-
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => CatsListView(
-                                            catExist: setState(),
-                                            catList: catList,
+                                      builder: (context) => AddCat(
+                                            cat: cat,
                                           )));
                             },
                             child: Text(

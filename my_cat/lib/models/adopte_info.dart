@@ -1,16 +1,18 @@
+import 'dart:io';
+
 class Information {
   String animal;
   String gender;
   String age;
   String vac;
-  String small_imageURL;
-  String big_imageURL;
-  String image1;
-  String image2;
+  File? small_imageURL;
+  File? big_imageURL;
+  File? image1;
+  File? image2;
   String rules;
   String breed;
 
-  int phone;
+  String phone;
 
   Information(
       {required this.animal,
