@@ -275,7 +275,7 @@ class _AddedPetsState extends State<AddedPets> {
           if (widget.pet[i].animal == 'cat') {
             for (var c = 0; c < widget.cat.length; c++) {
               if (widget.cat[c].id.toString() == id) {
-                setState(() {
+                return setState(() {
                   print('Cat removed ');
                   widget.cat..removeWhere((item) => item == widget.cat[c]);
                   widget.pet..removeWhere((item) => item == widget.pet[i]);
@@ -286,7 +286,7 @@ class _AddedPetsState extends State<AddedPets> {
             print('Entered dog');
             for (var d = 0; d < widget.dog.length; d++) {
               if (widget.dog[d].id.toString() == id) {
-                setState(() {
+                return setState(() {
                   print('Dog removed ');
                   widget.dog..removeWhere((item) => item == widget.dog[d]);
                   widget.pet..removeWhere((item) => item == widget.pet[i]);
@@ -294,7 +294,8 @@ class _AddedPetsState extends State<AddedPets> {
               }
             }
           }
-          return Navigator.of(context).pop();
+        } else {
+          return _IdError();
         }
       }
     } else {
