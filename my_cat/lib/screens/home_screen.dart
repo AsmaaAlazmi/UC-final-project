@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:my_cat/main.dart';
-
-import '../models/adopte_info.dart';
-import 'addanimal_screen.dart';
-import 'adopte_screen.dart';
+import 'package:my_cat/screens/AddedPets.dart';
+import 'package:my_cat/models/video_widget.dart';
+import '../models/infoClass.dart';
+import 'chosePlace.dart';
+import 'choseAdopte.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
 
   List<Information> cat = [];
+  List<Information> dog = [];
+  List<Information> pet = [];
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,26 @@ class Home extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: IconButton(
+                  iconSize: 20,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddedPets(
+                                  dog: dog,
+                                  cat: cat,
+                                  pet: pet,
+                                )));
+                  },
+                  icon: Icon(Icons.pets),
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
           backgroundColor: Colors.transparent,
           body: Container(
@@ -44,6 +66,8 @@ class Home extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => Adopte(
                                       catList: cat,
+                                      dogList: dog,
+                                      petList: pet,
                                     )));
                       },
                       child: Text(
@@ -78,6 +102,8 @@ class Home extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Add(
+                                      dog: dog,
+                                      pet: pet,
                                       cat: cat,
                                     )));
                       },

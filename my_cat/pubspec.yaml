@@ -74,27 +74,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - gifs/adopte.gif
-  - gifs/place_adoption.gif
-  - gifs/cat1.gif
-  - gifs/cat2.gif
-  - Vids/FarmCAt.mp4
   - Vids/SnowCat.mp4
   - Vids/SunsetCat.mp4
-  - Vids/dogVid.mp4
-  - images/catPic.png
-  - images/dogPic.png
+  - Vids/catVid2.mp4
+  - Vids/catVid3.mp4
+  - Vids/catVid4.mp4
   - images/AdopteBack.png
-  - images/whiteCatSml.png
-  - images/whiteCatBig.png
-  - images/whiteCatBig2.png
-  - images/russianBlue.png
-  - images/russianBlueBig.png
-  - images/white1.png
-  - images/white2.png
-  - images/russian1.png
-  - images/russian2.png
-  - images/backProfile.png
+ 
 
 
 
