@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_cat/screens/AddedPets.dart';
 import 'package:my_cat/models/video_widget.dart';
+import 'package:my_cat/screens/AddedPets.dart';
 import '../models/infoClass.dart';
 import 'chosePlace.dart';
 import 'choseAdopte.dart';
@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
-      //VideoWidget(),
+      VideoWidget(),
       Scaffold(
           extendBodyBehindAppBar: true,
           appBar: AppBar(
@@ -47,17 +47,32 @@ class Home extends StatelessWidget {
             color: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 70),
+                    child: Text(
+                      'Adopte | تبنى',
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
                   color: Colors.transparent,
-                  padding: EdgeInsets.only(top: 300),
+                  margin: EdgeInsets.only(top: 250),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       color: Colors.transparent,
-                      padding: EdgeInsets.only(top: 10),
+                      margin: EdgeInsets.only(top: 10),
                     ),
                     TextButton(
                       onPressed: () {
@@ -91,7 +106,7 @@ class Home extends StatelessWidget {
                 ),
                 Container(
                   color: Colors.transparent,
-                  padding: EdgeInsets.only(top: 65),
+                  margin: EdgeInsets.only(top: 65),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

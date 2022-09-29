@@ -26,7 +26,7 @@ class AdopteAnimalScreen extends StatelessWidget {
   textList(int index) {
     final texts = [
       'Gender: ${info.gender} \n\nAge: ${info.age}\n\nBreed: ${info.breed} \n\nVaccinated: ${info.vac}',
-      'Adoption rules: \n \n' + info.rules,
+      '   Adoption rules: \n \n' + info.rules,
     ];
     return texts[index];
   }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:my_cat/screens/cat/cat_info.dart';
+import 'package:my_cat/models/navigation_drawer.dart';
 
 import '../../models/infoClass.dart';
 import '../AddedPets.dart';
@@ -90,84 +91,61 @@ class _CatsListViewState extends State<CatsListView> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/AdopteBack.png"),
-            fit: BoxFit.cover,
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("images/AdopteBack.png"),
+          fit: BoxFit.cover,
         ),
-        child: Stack(children: <Widget>[
-          Scaffold(
+      ),
+      child: Stack(children: <Widget>[
+        Scaffold(
+            drawer: NavigationDrawer(
+              cat: widget.catList,
+              pet: widget.pet,
+            ),
+            backgroundColor: Colors.transparent,
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
               backgroundColor: Colors.transparent,
-              extendBodyBehindAppBar: true,
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                title: Text(
-                  'Adopte Cat',
-                  style: TextStyle(color: Colors.white),
-                ),
-                leading: BackButton(
+              elevation: 0,
+              title: Text(
+                'Adopte Cat',
+                style: TextStyle(color: Colors.white),
+              ),
+              actions: [
+                BackButton(
                   color: Color.fromARGB(255, 255, 255, 255),
                   onPressed: () {
                     Navigator.pop(context);
                   },
                 ),
-                actions: [
-                  PopupMenuButton(
-                      initialValue: 'any',
-                      onSelected: (String value) {
-                        setState(() {
-                          filterValue = value;
-                        });
-                      },
-                      icon: Icon(Icons.filter_list_rounded),
-                      itemBuilder: (context) => [
-                            PopupMenuItem(
-                              child: Text('no filter'),
-                              value: 'any',
-                            ),
-                            PopupMenuItem(
-                              child: Text('female'),
-                              value: 'female',
-                            ),
-                            PopupMenuItem(
-                              child: Text('male'),
-                              value: 'male',
-                            )
-                          ]),
-                  IconButton(
-                    iconSize: 20,
-
-                    // added pets
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddedPets(
-                                    cat: widget.catList,
-                                    pet: widget.pet,
-                                  )));
+                PopupMenuButton(
+                    initialValue: 'any',
+                    onSelected: (String value) {
+                      setState(() {
+                        filterValue = value;
+                      });
                     },
-                    icon: Icon(Icons.pets),
-                    color: Colors.white,
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.popUntil(
-                          context, (route) => route.settings.name == "/");
-                    },
-                    icon: Icon(Icons.home),
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              body: showList()),
-        ]),
-      ),
+                    icon: Icon(Icons.filter_list_rounded),
+                    itemBuilder: (context) => [
+                          PopupMenuItem(
+                            child: Text('no filter'),
+                            value: 'any',
+                          ),
+                          PopupMenuItem(
+                            child: Text('female'),
+                            value: 'female',
+                          ),
+                          PopupMenuItem(
+                            child: Text('male'),
+                            value: 'male',
+                          )
+                        ]),
+              ],
+            ),
+            body: showList()),
+      ]),
     );
   }
 

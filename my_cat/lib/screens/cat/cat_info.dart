@@ -2,30 +2,44 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:my_cat/models/infoClass.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../models/navigation_drawer.dart';
 
 // ignore: must_be_immutable
-class Detailed_Info extends StatelessWidget {
-  Detailed_Info({super.key, required this.info});
-  var catList;
-
-  double maxWidth = 384;
-
+class Detailed_Info extends StatefulWidget {
   final Information info;
+
+  const Detailed_Info({super.key, required this.info});
+
+  @override
+  State<Detailed_Info> createState() => _Detailed_InfoState();
+}
+
+class _Detailed_InfoState extends State<Detailed_Info> {
+  double maxWidth = 384;
+  bool isFav = false;
 
   imageList(int index) {
     final images = [
-      info.big_imageURL,
-      info.small_imageURL,
-      info.image1,
-      info.image2
+      widget.info.big_imageURL,
+      widget.info.small_imageURL,
+      widget.info.image1,
+      widget.info.image2
     ];
     return images[index];
   }
 
+  void ToggleFav() {
+    setState(() {
+      isFav = !isFav;
+    });
+  }
+
   textList(int index) {
     final texts = [
-      'Gender: ${info.gender} \n\nAge: ${info.age}\n\nBreed: ${info.breed} \n\nVaccinated: ${info.vac}',
-      'Adoption rules: \n \n' + info.rules,
+      'Gender: ${widget.info.gender} \n\nAge: ${widget.info.age}\n\nBreed: ${widget.info.breed} \n\nVaccinated: ${widget.info.vac}',
+      '   Adoption rules: \n \n' + widget.info.rules,
     ];
     return texts[index];
   }
@@ -47,13 +61,13 @@ class Detailed_Info extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              leading: BackButton(
-                color: Color.fromARGB(255, 255, 255, 255),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
               actions: [
+                BackButton(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 IconButton(
                   onPressed: () {
                     Navigator.popUntil(
@@ -65,10 +79,13 @@ class Detailed_Info extends StatelessWidget {
               ],
             ),
             body: SingleChildScrollView(
-              padding: EdgeInsets.only(top: 70),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
+                    padding: EdgeInsets.only(top: 70),
                     child: Center(
                       child: CarouselSlider.builder(
                           itemCount: 4,
@@ -89,56 +106,83 @@ class Detailed_Info extends StatelessWidget {
                           )),
                     ),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(top: 0),
+                    width: maxWidth + 10,
+                    height: 220,
+                    child: Column(
+                      children: [
+                        Center(
+                          child: CarouselSlider.builder(
+                              itemCount: 2,
+                              itemBuilder: ((context, index, realIndex) {
+                                final urText = textList(index);
+
+                                return buildText(urText, index);
+                              }),
+                              options: CarouselOptions(
+                                height: 220,
+                                autoPlay: false,
+                                autoPlayInterval: Duration(seconds: 2),
+                                reverse: false,
+                                enlargeCenterPage: true,
+                                enableInfiniteScroll: false,
+                                enlargeStrategy:
+                                    CenterPageEnlargeStrategy.scale,
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: IconButton(
+                            onPressed: () {
+                              ToggleFav();
+                            },
+                            icon: (isFav
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.white,
+                                    size: 30,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border_rounded,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ))),
+                      ),
+                      SizedBox(
+                        width: 60,
+                      ),
+                      Container(
+                        width: 150,
+                        height: 50,
+                        margin: EdgeInsets.only(top: 0, left: 0),
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            //color: Color.fromARGB(255, 100, 71, 71),
+                            border: Border.all(
+                                width: 1.5,
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            borderRadius: BorderRadius.all(Radius.circular(0))),
+                        child: Center(
+                            child: Text(
+                          'Contact: ' + widget.info.phone.toString(),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
-          ),
-          Container(
-            //color: Colors.white,
-            margin: EdgeInsets.only(top: 480),
-            width: maxWidth + 10,
-            height: 240,
-            child: Column(
-              children: [
-                Center(
-                  child: CarouselSlider.builder(
-                      itemCount: 2,
-                      itemBuilder: ((context, index, realIndex) {
-                        final urText = textList(index);
-
-                        return buildText(urText, index);
-                      }),
-                      options: CarouselOptions(
-                        height: 220,
-                        autoPlay: false,
-                        autoPlayInterval: Duration(seconds: 2),
-                        reverse: false,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: false,
-                        enlargeStrategy: CenterPageEnlargeStrategy.scale,
-                      )),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 150,
-            height: 50,
-            margin: EdgeInsets.only(top: 700, left: 120),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                //color: Color.fromARGB(255, 100, 71, 71),
-                border: Border.all(
-                    width: 1.5, color: Color.fromARGB(255, 255, 255, 255)),
-                borderRadius: BorderRadius.all(Radius.circular(0))),
-            child: Center(
-                child: Text(
-              'Contact: ' + info.phone.toString(),
-              style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold),
-            )),
+            drawer: NavigationDrawer(),
           ),
         ]),
       ),
@@ -173,14 +217,17 @@ class Detailed_Info extends StatelessWidget {
                 border: Border.all(
                     width: 1.5, color: Color.fromARGB(255, 255, 255, 255)),
                 borderRadius: BorderRadius.all(Radius.circular(0))),
-            child: Center(
-                child: Text(
-              urText,
-              style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold),
-            )),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Center(
+                  child: Text(
+                urText,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              )),
+            ),
           ),
         ),
       );

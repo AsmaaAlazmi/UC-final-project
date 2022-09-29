@@ -20,10 +20,15 @@ class _VideoWidgetState extends State<VideoWidget> {
     'Vids/catVid2.mp4'
   ];
 
+  var vid;
+
   @override
   void initState() {
+    setState(() {
+      vid = (vidList..shuffle()).first;
+    });
     super.initState();
-    _controller = VideoPlayerController.asset((vidList..shuffle()).first)
+    _controller = VideoPlayerController.asset(vid)
       ..initialize().then((_) {
         _controller.setVolume(0.0);
         _controller.setLooping(true);

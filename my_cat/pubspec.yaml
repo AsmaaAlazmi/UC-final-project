@@ -46,6 +46,7 @@ dependencies:
 
   fluttertoast: ^8.0.7
   flash: ^2.0.3+3
+  shared_preferences: ^2.0.5
 
 
 dev_dependencies:
@@ -79,6 +80,12 @@ flutter:
   - Vids/catVid2.mp4
   - Vids/catVid3.mp4
   - Vids/catVid4.mp4
+  - Vids/catgif.gif
+  - Vids/gif2.gif
+  - Vids/gif4.gif
+
+
+
   - images/AdopteBack.png
  
 

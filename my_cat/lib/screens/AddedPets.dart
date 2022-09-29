@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_cat/models/navigation_drawer.dart';
 
 import 'cat/cat_info.dart';
 
@@ -46,6 +47,7 @@ class _AddedPetsState extends State<AddedPets> {
       ),
       child: Stack(children: <Widget>[
         Scaffold(
+            drawer: NavigationDrawer(),
             backgroundColor: Colors.transparent,
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -55,29 +57,19 @@ class _AddedPetsState extends State<AddedPets> {
                 'My pets for adoption',
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
-              leading: BackButton(
-                color: Color.fromARGB(255, 255, 255, 255),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
               actions: [
-                TextButton(
-                    // REMOVE PET
-                    onPressed: () {
-                      openDialog();
-                    },
-                    child: Text(
-                      'Remove Pet',
-                      style: TextStyle(color: Color.fromARGB(255, 251, 47, 47)),
-                    )),
-                IconButton(
-                  onPressed: () {
-                    Navigator.popUntil(
-                        context, (route) => route.settings.name == "/");
-                  },
-                  icon: Icon(Icons.home),
-                  color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: TextButton(
+                      // REMOVE PET
+                      onPressed: () {
+                        openDialog();
+                      },
+                      child: Text(
+                        'Remove Pet',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 251, 47, 47)),
+                      )),
                 ),
               ],
             ),
@@ -302,11 +294,10 @@ class _AddedPetsState extends State<AddedPets> {
               }
             }
           }
+          return Navigator.of(context).pop();
         }
       }
-      return Navigator.of(context).pop();
     } else {
-      Navigator.of(context).pop();
       _IdError();
     }
   }
